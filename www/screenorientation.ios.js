@@ -27,11 +27,17 @@ screenOrientation.setOrientation = function (orientation) {
 };
 
 screenOrientation.setAllowSleep = function (val) {
-    exec(null, null, "YoikScreenOrientation", "setAllowSleep", ['val', val]);
+    var success = function (res) {
+        console.log('success');
+    };
+    exec(success, null, "YoikScreenOrientation", "setAllowSleep", ['val', val]);
 };
 
 screenOrientation.setBrightness = function (val) {
-    exec(null, null, "YoikScreenOrientation", "setBrightness", ['val', val]);
+    var success = function (res) {
+        console.log('success');
+    };
+    exec(success, null, "YoikScreenOrientation", "setBrightness", ['val', val]);
 };
 
 module.exports = screenOrientation;
