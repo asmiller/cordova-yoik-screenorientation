@@ -34,7 +34,12 @@ SOFTWARE.
 - (void) setBrightness:(CDVInvokedUrlCommand *)command
 {
     float val = [[command.arguments objectAtIndex:1] floatValue];
-    [(id)[UIApplication sharedApplication] setBacklightLevel:val];
+    NSMethodSignature* signature = [[[UIApplication sharedApplication] class] instanceMethodSignatureForSelector: @selector( setBacklightLevel: )];
+    NSInvocation* invocation = [NSInvocation invocationWithMethodSignature: signature];
+    [invocation setTarget: [UIApplication sharedApplication]];
+    [invocation setSelector: @selector( setBacklightLevel: ) ];
+    [invocation setArgument: &val atIndex: 2];
+    [invocation invoke];
 }
 
 -(void)screenOrientation:(CDVInvokedUrlCommand *)command
