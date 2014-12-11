@@ -28,6 +28,8 @@ SOFTWARE.
 @interface YoikScreenOrientation : CDVPlugin
 
 - (void)screenOrientation:(CDVInvokedUrlCommand *)command;
+- (void)setAllowSleep:(CDVInvokedUrlCommand *)command;
+- (void)setBrightness:(CDVInvokedUrlCommand *)command;
 
 @end
 

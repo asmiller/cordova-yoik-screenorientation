@@ -25,6 +25,18 @@ SOFTWARE.
 
 @implementation YoikScreenOrientation
 
+- (void) setAllowSleep:(CDVInvokedUrlCommand *)command
+{
+    BOOL val = [[command.arguments objectAtIndex:1] boolValue];
+    [UIApplication sharedApplication].idleTimerDisabled = !val;
+}
+
+- (void) setBrightness:(CDVInvokedUrlCommand *)command
+{
+    float val = [[command.arguments objectAtIndex:1] floatValue];
+    [(id)[UIApplication sharedApplication] setBacklightLevel:val];
+}
+
 -(void)screenOrientation:(CDVInvokedUrlCommand *)command
 {
     NSArray* arguments = command.arguments;

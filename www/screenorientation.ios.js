@@ -1,35 +1,43 @@
 var exec = require('cordova/exec'),
     screenOrientation = {},
     iosOrientation = 'unlocked',
-    orientationMap  = {
-        'portrait': [0,180],
+    orientationMap = {
+        'portrait': [0, 180],
         'portrait-primary': [0],
         'portrait-secondary': [180],
-        'landscape': [-90,90],
+        'landscape': [-90, 90],
         'landscape-primary': [-90],
         'landscape-secondary': [90],
-        'default': [-90,90,0]
+        'default': [-90, 90, 0]
     };
 
-screenOrientation.setOrientation = function(orientation) {
+screenOrientation.setOrientation = function (orientation) {
     iosOrientation = orientation;
 
-    var success = function(res) {
+    var success = function (res) {
         if (orientation === 'unlocked' && res.device) {
             iosOrientation = res.device;
-            setTimeout(function() {
+            setTimeout(function () {
                 iosOrientation = 'unlocked';
-            },300);
+            }, 300);
         }
     };
 
     exec(success, null, "YoikScreenOrientation", "screenOrientation", ['set', orientation]);
 };
 
+screenOrientation.setAllowSleep = function (val) {
+    exec(null, null, "YoikScreenOrientation", "setAllowSleep", ['val', val]);
+};
+
+screenOrientation.setBrightness = function (val) {
+    exec(null, null, "YoikScreenOrientation", "setBrightness", ['val', val]);
+};
+
 module.exports = screenOrientation;
 
 // ios orientation callback/hook
-window.shouldRotateToOrientation = function(orientation) {
+window.shouldRotateToOrientation = function (orientation) {
     var map = orientationMap[iosOrientation] || orientationMap['default'];
     return map.indexOf(orientation) >= 0;
 };
